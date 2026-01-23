@@ -8,7 +8,7 @@ pragma solidity ^0.8.4;
 /// (https://github.com/Saw-mon-and-Natalie/clones-with-immutable-args)
 /// @author Minimal ERC1967 proxy by jtriley-eth (https://github.com/jtriley-eth/minimum-viable-proxy)
 /// @dev Reduced version containing only ERC1967 proxy deployment functions.
-library LibClone {
+library OptimisedLibClone {
     /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
     /*                       CUSTOM ERRORS                        */
     /*.•°:°.´+˚.*°.˚:*.´•*.+°.•°:´*.´•*.•°.•°:°.´:•˚°.*°.˚:*.´+°.•*/

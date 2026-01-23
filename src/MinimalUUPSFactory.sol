@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import { LibClone } from "./vendor/LibClone.sol";
+import { OptimisedLibClone } from "./vendor/OptimisedLibClone.sol";
 
 /// @title MinimalUUPSFactory
 /// @notice Factory for deploying minimal ERC-1967 UUPS proxies.
@@ -33,7 +33,7 @@ contract MinimalUUPSFactory {
     /// @param implementation The implementation address.
     /// @return proxy The deployed proxy address.
     function deploy(address implementation) public returns (address proxy) {
-        proxy = LibClone.deployERC1967(implementation);
+        proxy = OptimisedLibClone.deployERC1967(implementation);
         emit ProxyDeployed(proxy, implementation);
     }
 
@@ -42,7 +42,7 @@ contract MinimalUUPSFactory {
     /// @param data The initialization calldata.
     /// @return proxy The deployed proxy address.
     function deployAndCall(address implementation, bytes calldata data) public payable returns (address proxy) {
-        proxy = LibClone.deployERC1967(implementation);
+        proxy = OptimisedLibClone.deployERC1967(implementation);
 
         if (data.length > 0) {
             (bool success, bytes memory returnData) = proxy.call{ value: msg.value }(data);
@@ -66,7 +66,7 @@ contract MinimalUUPSFactory {
     /// @param salt The CREATE2 salt.
     /// @return proxy The deployed proxy address.
     function deployDeterministic(address implementation, bytes32 salt) public returns (address proxy) {
-        proxy = LibClone.deployDeterministicERC1967(implementation, salt);
+        proxy = OptimisedLibClone.deployDeterministicERC1967(implementation, salt);
         emit ProxyDeployed(proxy, implementation);
     }
 
@@ -80,7 +80,7 @@ contract MinimalUUPSFactory {
         payable
         returns (address proxy)
     {
-        proxy = LibClone.deployDeterministicERC1967(implementation, salt);
+        proxy = OptimisedLibClone.deployDeterministicERC1967(implementation, salt);
 
         if (data.length > 0) {
             (bool success, bytes memory returnData) = proxy.call{ value: msg.value }(data);
@@ -107,7 +107,7 @@ contract MinimalUUPSFactory {
     /// @param implementation The implementation address.
     /// @return hash The keccak256 hash of the init code.
     function initCodeHash(address implementation) public pure returns (bytes32 hash) {
-        hash = LibClone.initCodeHash(implementation);
+        hash = OptimisedLibClone.initCodeHash(implementation);
     }
 
     /// @notice Predicts the deterministic address for a proxy.
@@ -115,6 +115,6 @@ contract MinimalUUPSFactory {
     /// @param salt The CREATE2 salt.
     /// @return predicted The predicted proxy address.
     function predictDeterministicAddress(address implementation, bytes32 salt) public view returns (address predicted) {
-        predicted = LibClone.predictDeterministicAddress(implementation, salt, address(this));
+        predicted = OptimisedLibClone.predictDeterministicAddress(implementation, salt, address(this));
     }
 }
